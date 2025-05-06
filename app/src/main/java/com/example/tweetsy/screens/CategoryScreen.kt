@@ -34,24 +34,14 @@ fun CategoryScreen(innerPadding: PaddingValues, onclick: (category: String) -> U
     val categoryViewModel: CategoryViewModel = hiltViewModel()
     val categories: State<List<String>> = categoryViewModel.categories.collectAsState()
 
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(innerPadding)
+    LazyVerticalGrid(
+        modifier = Modifier.padding(innerPadding),
+        columns = GridCells.Fixed(2),
+        contentPadding = PaddingValues(8.dp),
+        verticalArrangement = Arrangement.SpaceAround,
     ) {
-        Text(
-            text = "Tweets Application",
-            modifier = Modifier.padding(top = 20.dp),
-            style = MaterialTheme.typography.headlineLarge
-        )
-
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(8.dp),
-            verticalArrangement = Arrangement.SpaceAround,
-        ) {
-            items(categories.value) {
-                CategoryItem(it, onclick)
-            }
+        items(categories.value) {
+            CategoryItem(it, onclick)
         }
     }
 }
